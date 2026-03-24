@@ -99,7 +99,7 @@ def station_stats(df):
 
 
 def trip_duration_stats(df):
-    """Displays total and average trip duration."""
+    """Shows total and average travel time for the selected dataset."""
 
     print('\nCalculating trip duration...\n')
     start_time = time.time()

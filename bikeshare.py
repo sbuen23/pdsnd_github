@@ -12,7 +12,7 @@ CITY_DATA = {
 def get_filters():
     """Asks the user for city, month and day to analyze."""
 
-    print("\nHello! Let's explore some US bikeshare data.\n")
+    print("\nWelcome! Let's analyze some US bikeshare data.\n")
 
     # Allowed inputs
     cities = {

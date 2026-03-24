@@ -1,1 +1,5 @@
-.github/**
+# ignore CSV files
+*.csv
+
+# allow .github folder (from the template)
+!.github/**

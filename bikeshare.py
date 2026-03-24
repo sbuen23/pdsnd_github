@@ -2,7 +2,7 @@ import time
 import pandas as pd
 import numpy as np
 
-# Dictionary mapping each city name to its corresponding data file.
+# Map of city names to their data files
 CITY_DATA = { 
     'chicago': 'chicago.csv',
     'new york city': 'new_york_city.csv',
@@ -23,7 +23,6 @@ def get_filters():
         'washington': 'washington'
     }
 
-    # Loop to repeatedly ask for a valid city until the user enters one.
     while True:
         city = input("Choose a city (Chicago, New York City, Washington): ").strip().lower()
         if city in cities:
@@ -54,19 +53,15 @@ def load_data(city, month, day):
 
     df = pd.read_csv(CITY_DATA[city])
 
-    # Convert the Start Time column to datetime to extract month, day, and hour values.
     df['Start Time'] = pd.to_datetime(df['Start Time'])
 
-    # Create additional columns used for filtering and statistics.
     df['month'] = df['Start Time'].dt.month_name().str.lower()
     df['day_of_week'] = df['Start Time'].dt.day_name().str.lower()
     df['hour'] = df['Start Time'].dt.hour
 
-    # Apply month filter if the user selected a specific month.
     if month != 'all':
         df = df[df['month'] == month]
 
-    # Apply day-of-week filter if required.
     if day != 'all':
         df = df[df['day_of_week'] == day]
 
@@ -79,7 +74,6 @@ def time_stats(df):
     print('\nCalculating frequent travel times...\n')
     start_time = time.time()
 
-    # Display the most frequent month, day, and hour of travel.
     print("Most common month:", df['month'].mode()[0].title())
     print("Most common day:", df['day_of_week'].mode()[0].title())
     print("Most common start hour:", df['hour'].mode()[0])
@@ -97,7 +91,6 @@ def station_stats(df):
     print("Most common start station:", df['Start Station'].mode()[0])
     print("Most common end station:", df['End Station'].mode()[0])
 
-    # Combine start and end stations into a single string to identify common trips.
     df['Trip'] = df['Start Station'] + " -> " + df['End Station']
     print("Most frequent trip:", df['Trip'].mode()[0])
 
@@ -155,7 +148,6 @@ def main():
         show_raw = input('\nSee raw data? (yes/no): ').strip().lower()
         row_start = 0
 
-        # Display raw data in chunks of 5 rows until the user chooses to stop.
         while show_raw == 'yes':
             print(df.iloc[row_start:row_start + 5])
             row_start += 5
